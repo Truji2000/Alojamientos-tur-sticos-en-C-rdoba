@@ -1,1 +1,1 @@
-# Alojamientos-tur-sticos-en-C-rdoba
+# Alojamientos turisticos en Cordoba
