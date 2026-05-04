@@ -241,6 +241,110 @@
       background: var(--border);
     }
 
+    /* ── Layer toggles ── */
+    .layer-controls {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 5;
+      background: rgba(22, 24, 31, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 190px;
+    }
+
+    .layer-controls-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-label .icon {
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    /* Toggle switch */
+    .toggle-switch {
+      position: relative;
+      width: 34px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border);
+      transition: background 0.25s, border-color 0.25s;
+      cursor: pointer;
+    }
+
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: transform 0.25s, background 0.25s;
+    }
+
+    .toggle-switch input:checked + .toggle-track {
+      background: rgba(232, 160, 69, 0.25);
+      border-color: var(--accent);
+    }
+
+    .toggle-switch input:checked + .toggle-track::after {
+      transform: translateX(16px);
+      background: var(--accent);
+    }
+
+    .toggle-switch.blue input:checked + .toggle-track {
+      background: rgba(92, 143, 255, 0.25);
+      border-color: var(--accent2);
+    }
+
+    .toggle-switch.blue input:checked + .toggle-track::after {
+      background: var(--accent2);
+    }
+
     /* ── Mapbox controls dark ── */
     .mapboxgl-ctrl-group {
       background: var(--surface) !important;
@@ -271,6 +375,32 @@
   </header>
 
   <div id="map">
+
+    <!-- Selector de capas -->
+    <div class="layer-controls">
+      <div class="layer-controls-title">Capas</div>
+
+      <div class="toggle-row">
+        <label class="toggle-label" for="toggle-alojamientos">
+          <span class="icon">📍</span> Alojamientos
+        </label>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggle-alojamientos" checked />
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <label class="toggle-label" for="toggle-heatmap">
+          <span class="icon">🌡️</span> Heatmap
+        </label>
+        <label class="toggle-switch blue">
+          <input type="checkbox" id="toggle-heatmap" checked />
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+
     <div class="legend">
       <div class="legend-title">Tipo de alojamiento</div>
       <div class="legend-item">
@@ -291,6 +421,7 @@
   <script>
     // ─── IMPORTANTE: Reemplaza con tu token de Mapbox ─────────────────────────
     mapboxgl.accessToken = 'pk.eyJ1IjoidHJ1amkyMDAwIiwiYSI6ImNtb2d6cGZxdzAxaGcyc3NiNHU2eDg0czkifQ.Y3k8roSPvhTLLkOW7FIfvw';
+
     // ──────────────────────────────────────────────────────────────────────────
 
     const map = new mapboxgl.Map({
@@ -388,6 +519,24 @@
           </div>
         `)
         .addTo(map);
+    });
+
+    // ── Selector de capas ─────────────────────────────────────────────────────
+    map.on('load', () => {
+      document.getElementById('toggle-alojamientos').addEventListener('change', (e) => {
+        const visibility = e.target.checked ? 'visible' : 'none';
+        map.setLayoutProperty('Alojamientos', 'visibility', visibility);
+        // Si se ocultan los alojamientos, cerrar popups abiertos
+        if (!e.target.checked) {
+          hoverPopup.remove();
+          clickPopup.remove();
+        }
+      });
+
+      document.getElementById('toggle-heatmap').addEventListener('change', (e) => {
+        const visibility = e.target.checked ? 'visible' : 'none';
+        map.setLayoutProperty('Heatmap', 'visibility', visibility);
+      });
     });
   </script>
 </body>
