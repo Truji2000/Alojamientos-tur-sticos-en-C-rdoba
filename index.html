@@ -14,24 +14,28 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-     --bg: #f0f0f0;
+      --bg: #f0f0f0;
       --surface: #f0f0f0;
       --border: rgba(255,255,255,0.07);
-     --text: #0a0a0a;
+      --text: #0a0a0a;
       --muted: #7a7d8a;
       --accent: #e8a045;
       --accent2: #5c8fff;
       --radius: 12px;
     }
 
+    html {
+      height: 100%;
+    }
+
     body {
       font-family: 'Sora', sans-serif;
       background: var(--bg);
       color: var(--text);
-      height: 100vh;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow-y: scroll; /* barra de desplazamiento vertical siempre visible */
     }
 
     /* ── Header ── */
@@ -76,7 +80,7 @@
       bottom: 36px;
       left: 16px;
       z-index: 5;
-    background: rgba(247, 247, 248, 0.92);
+      background: rgba(247, 247, 248, 0.92);
       backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -118,11 +122,51 @@
     .legend-icon.apt      { background: rgba(232, 160, 69, 0.2); color: var(--accent); }
     .legend-icon.vivienda { background: rgba(72, 199, 142, 0.2); color: #48c78e; }
 
-    /* ── Map ── */
-    #map {
-      flex: 1;
+    /* ── Map container compartido ── */
+    .map-container {
       width: 100%;
+      height: calc(80vh); /* mismo alto que ocupaba el mapa original */
       position: relative;
+      max-width: 800px;
+      flex-shrink: 0;
+    }
+
+    /* ── Mapa Mapbox ── */
+    #map {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* ── iframes uMap (mismo tamaño que el mapa Mapbox) ── */
+    .map-frame {
+      width: 100%;
+      height:100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── Secciones de capítulos ── */
+    .chapter {
+      flex-shrink: 0;
+    }
+
+    .chapter-header {
+      padding: 20px 24px 0;
+      background: var(--surface);
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .chapter-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .chapter-header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
     }
 
     /* ── Mapbox popup overrides ── */
@@ -374,49 +418,84 @@
     </div>
   </header>
 
-  <div id="map">
+  <!-- ── MAPA 1: Mapbox ── -->
+  <div class="map-container">
+    <div id="map" style="width:100%;height:100%;position:relative;">
 
-    <!-- Selector de capas -->
-    <div class="layer-controls">
-      <div class="layer-controls-title">Capas</div>
+      <!-- Selector de capas -->
+      <div class="layer-controls">
+        <div class="layer-controls-title">Capas</div>
 
-      <div class="toggle-row">
-        <label class="toggle-label" for="toggle-alojamientos">
-          <span class="icon">📍</span> Alojamientos
-        </label>
-        <label class="toggle-switch">
-          <input type="checkbox" id="toggle-alojamientos" checked />
-          <span class="toggle-track"></span>
-        </label>
+        <div class="toggle-row">
+          <label class="toggle-label" for="toggle-alojamientos">
+            <span class="icon">📍</span> Alojamientos
+          </label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-alojamientos" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <label class="toggle-label" for="toggle-heatmap">
+            <span class="icon">🌡️</span> Heatmap
+          </label>
+          <label class="toggle-switch blue">
+            <input type="checkbox" id="toggle-heatmap" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
       </div>
 
-      <div class="toggle-row">
-        <label class="toggle-label" for="toggle-heatmap">
-          <span class="icon">🌡️</span> Heatmap
-        </label>
-        <label class="toggle-switch blue">
-          <input type="checkbox" id="toggle-heatmap" checked />
-          <span class="toggle-track"></span>
-        </label>
-      </div>
-    </div>
-
-    <div class="legend">
-      <div class="legend-title">Tipo de alojamiento</div>
-      <div class="legend-item">
-        <div class="legend-icon hotel">🏨</div>
-        <span>Establecimiento Hotelero</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon apt">🏢</div>
-        <span>Apartamento Turístico</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-icon vivienda">🏠</div>
-        <span>Vivienda de Uso Turístico</span>
+      <div class="legend">
+        <div class="legend-title">Tipo de alojamiento</div>
+        <div class="legend-item">
+          <div class="legend-icon hotel">🏨</div>
+          <span>Establecimiento Hotelero</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-icon apt">🏢</div>
+          <span>Apartamento Turístico</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-icon vivienda">🏠</div>
+          <span>Vivienda de Uso Turístico</span>
+        </div>
       </div>
     </div>
   </div>
+  <p><a href="https://truji2000.github.io/Alojamientos-tur-sticos-en-C-rdoba/">Ver en pantalla completa</a></p>
+
+  <!-- ── MAPA 2: Saturación de alojamientos turísticos ── -->
+ 
+    <div class="chapter-header">
+      <h2>Cociente entre plazas turísticas y población residente</h2>
+      <p>Breve introducción / narración para Faro 1.</p>
+    </div>
+    <div class="map-container"><iframe style="width: 100%; height:  90%; border: 0;" allowfullscreen allow="geolocation" src="//umap.openstreetmap.fr/es/map/densidad-de-alojamientos-turisticos-en-cordoba_1402730?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.779396"></iframe><p><a href="//umap.openstreetmap.fr/es/map/densidad-de-alojamientos-turisticos-en-cordoba_1402730?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.779396">Ver en pantalla completa</a></p>
+    </div>
+  
+  <!-- ── MAPA 3: Evolución del número de plazas turísticas ── -->
+ 
+    <div class="chapter-header">
+      <h2>Evolución de las plazas turísticas entre 2018 y 2026</h2>
+      <p>Texto narrativo para Faro 2.</p>
+    </div>
+    <div class="map-container">
+     <iframe style="width: 100%; height: 90%; border: 0;" allowfullscreen allow="geolocation" src="//umap.openstreetmap.fr/es/map/incremento-de-plazas-e-alojamientos-turisticos-en-_1402772?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.77939"></iframe><p><a href="//umap.openstreetmap.fr/es/map/incremento-de-plazas-e-alojamientos-turisticos-en-_1402772?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.77939">Ver en pantalla completa</a></p>  </div>
+ <br>
+<!-- ── MAPA 4: Evolución de los hogares ── -->
+<br>
+ 
+<div class="chapter-header">
+    <h2>Evolución de los hogares entre 2018 y 2024</h2>
+    <p>Texto narrativo para Faro 2.</p>
+  </div>
+  <div class="map-container">
+   <iframe style="width: 100%; height:  90%; border: 0;" allowfullscreen allow="geolocation" src="//umap.openstreetmap.fr/es/map/evolucion-de-hogares-entre-2018-y-2026_1403623?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.77939"></iframe><p><a href="//umap.openstreetmap.fr/es/map/evolucion-de-hogares-entre-2018-y-2026_1403623?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.77939">Ver en pantalla completa</a></p></div>
+
+
+
 
   <script>
     // ─── IMPORTANTE: Reemplaza con tu token de Mapbox ─────────────────────────
@@ -526,7 +605,6 @@
       document.getElementById('toggle-alojamientos').addEventListener('change', (e) => {
         const visibility = e.target.checked ? 'visible' : 'none';
         map.setLayoutProperty('Alojamientos', 'visibility', visibility);
-        // Si se ocultan los alojamientos, cerrar popups abiertos
         if (!e.target.checked) {
           hoverPopup.remove();
           clickPopup.remove();
