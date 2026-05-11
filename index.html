@@ -29,13 +29,46 @@
     }
 
     body {
-      font-family: 'Sora', sans-serif;
+     font-family: 'Sora', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100%;
       display: flex;
       flex-direction: column;
       overflow-y: scroll; /* barra de desplazamiento vertical siempre visible */
+      font-size: 15px;
+      line-height: 1.75;
+    }
+/* ── Legibilidad del texto principal ── */
+    div[style*="text-align: left"],
+    div[style*="text-align:left"] {
+      line-height: 1.8;
+      margin-bottom: 1em;
+      max-width: 760px;
+      padding: 0 24px;
+    }
+
+    h1[style*="text-align: left"],
+    h2[style*="text-align: left"] {
+      max-width: 760px;
+      padding: 0 24px;
+    }
+
+    h1 {
+      font-size: 22px;
+      line-height: 1.4;
+      margin-bottom: 0.5em;
+      margin-top: 0.5em;
+    }
+
+    h2 {
+      line-height: 1.4;
+    }
+
+    p {
+      max-width: 760px;
+      padding: 0 24px;
+      line-height: 1.75;
     }
 
     /* ── Header ── */
@@ -151,22 +184,25 @@
       flex-shrink: 0;
     }
 
-    .chapter-header {
-      padding: 20px 24px 0;
+  .chapter-header {
+      padding: 28px 24px 8px;
       background: var(--surface);
       border-top: 1px solid rgba(0,0,0,0.08);
+      max-width: 760px;
     }
 
-    .chapter-header h2 {
+  .chapter-header h2 {
       font-size: 18px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
+      line-height: 1.4;
     }
 
-    .chapter-header p {
+     .chapter-header p {
       font-size: 13px;
       color: var(--muted);
-      margin-bottom: 14px;
+      margin-bottom: 18px;
+      line-height: 1.6;
     }
 
     /* ── Mapbox popup overrides ── */
@@ -407,9 +443,9 @@
 <body>
 <p>&nbsp;</p><h1 style="text-align: left;">Efectos de los alojamientos turísticos en la población del centro histórico de Córdoba</h1>
 <div style="text-align: left;">En el mes de abril de este año tuvo lugar una mesa redonda organizada por el Consejo de Distrito de Córdoba, donde se debatió sobre los alojamientos turísticos.&nbsp;</div><div style="text-align: left;">Una de las cuestiones que se planteaba era el grado de turistificación, es decir, si ya se podía&nbsp; hablar de una sustitución del habitante de los barrios por el turista, lo cual podría implicar que también los negocios se especializan en los turistas, y finalmente la conversión de un barrio de residencial en barrio de servicios dedicado al turismo.</div><div style="text-align: left;">Otra de las cuestiones que se planteaba era si el incremento de estos alojamientos estaba provocando la despoblación del centro.&nbsp;</div>
-<div style="text-align: left;">Vamos a hacer una aproximación con datos a estas dos cuestiones. Tienen una entrevista sobre mi aportación a dicha mesa redonda en <a href="https://www.cordobahoy.es/articulo/gente/entrevista/20260426140438195824.amp.html" target="_blank">este artículo periodístico.</a></div>
+<div style="text-align: left;">Vamos a hacer una aproximación con datos a estas dos cuestiones. Se puede consultar una entrevista sobre mi aportación a dicha mesa redonda en <a href="https://www.cordobahoy.es/articulo/gente/entrevista/20260426140438195824.amp.html" target="_blank">esta entrevista al periódico Cordobahoy.</a></div>
 <div style="text-align: left;">Efectivamente, los alojamientos turísticos se han extendido por todo el centro histórico, especialmente en los últimos años las Viviendas de Uso Turístico (VUT), como se puede ver en el siguiente gráfico.</div>
-<iframe src='https://flo.uri.sh/visualisation/28908565/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:60%;height:80vh;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+<iframe src='https://flo.uri.sh/visualisation/28908565/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:80%;height:80vh;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
 <p>Fuente: Registro de Turismo de Andalucía</p>
 <p><br></p>
 <div style="text-align: left;">En este mapa puedes ver la distribución de los alojamientos turísticos en Córdoba, haciendo click puedes acceder a toda la información sobre cada uno de ellos, siendo la fuente el <a href="https://www.juntadeandalucia.es/organismos/turismoyandaluciaexterior/areas/turismo/registro-turismo/buscador-establecimientos-servicios-turisticos.html" target="_blank">Registro de Turismo de Andalucía</a> (Junta de Andalucía).</div><div style="text-align: left;">Si ocultamos la capa de alojamientos veremos mejor el mapa de calor, que nos indica dónde se distribuyen con más intensidad, teniendo en cuenta el número de habitaciones de cada uno. Vemos una zona donde la intensidad es mucho más alta, en color rojo.&nbsp;</div>
@@ -493,11 +529,11 @@
      <h2>Evolución de las plazas turísticas entre 2018 y 2026</h2>
    </div>
  <div style="text-align: left;">Para abordar la segunda cuestión tendremos que ver la evolución de las plazas de alojamientos y si ésta ha podido afectar a la evolución de la población. Para ver la evolución de las plazas de alojamientos disponemos del dato del número de alojamientos y plazas de 2018, procedentes también del RTA, gracias a un estudio que realizamos en esa fecha sobre este asunto.</div><div style="text-align: left;">Por tanto, podemos calcular si hay incremento de plazas en cada zona y cuánto es ese incremento.</div><div style="text-align: left;">&nbsp;En el siguiente mapa vemos el resultado, viendo que el mayor incremento se da precisamente en las secciones aledañas a la Judería, con más de 500 plazas más en San Basilio, Rey Heredia y San Juan. Tras estas tres secciones, el resto de zonas del casco histórico y otras zonas aledañas muestran también un importante crecimiento.</div>
- 
- 
- 
-    <div class="map-container">
+ <div class="map-container">
      <iframe style="width: 100%; height: 100%; border: 0;" allowfullscreen allow="geolocation" src="//umap.openstreetmap.fr/es/map/incremento-de-plazas-e-alojamientos-turisticos-en-_1402772?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.77939"></iframe><p><a href="//umap.openstreetmap.fr/es/map/incremento-de-plazas-e-alojamientos-turisticos-en-_1402772?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.77939">Ver en pantalla completa</a></p>  </div>
+ 
+    
+
  <br>
 <!-- ── MAPA 4: Evolución de los hogares ── -->
  
@@ -505,19 +541,27 @@
 <div class="chapter-header">
     <h2>Evolución de los hogares entre 2018 y 2024</h2>
     </div>
-   <div style="text-align: left;">&nbsp;Finalmente, para ver si se está produciendo la despoblación del casco histórico, y si esta puede estar relacionada con los alojamientos turísticos, necesitamos distinguir dos fenómenos. Por un lado, la reducción de la población puede deberse a un cambio en la estructura de los hogares, en donde se reduzca el número de personas por hogar, pasando de hogares con niños a hogares sin niños o personas solas, bien por el envejecimiento, en el que quedan personas mayores ya sin los niños, o bien que lleguen al barrio parejas que no tienen niños o personas solas. Esto no tendría relación con los alojamientos turísticos.&nbsp;</div><div style="text-align: left;">Por tanto, lo que realmente nos interesa no es el dato de población, sino el dato de viviendas familiares ocupadas, ya que es lo que nos puede dar la sustitución de hogares por turistas. Este dato solo está publicado directamente para el Censo de 2021, por lo que no podríamos saber su evolución, pero podemos conocerlo indirectamente utilizando el dato del tamaño medio del hogar, que aparece recogido en los<a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/dega/estadisticas-de-poblacion-de-andalucia-basadas-en-registros-administrativos-epabra" target="_blank">Indicadores
-Estadísticos de Población de Andalucía Basados en Registros Administrativos</a>&nbsp;(IEPABRA)&nbsp; que publica el IECA. El último año para el que está disponible este indicador es el año 2024. Sabiendo la población de la sección y el tamaño del hogar es inmediato obtener el número de hogares.</div><div style="text-align: left;">En el siguiente mapa tenemos esta evolución, medida en porcentaje de pérdida o de ganancia sobre el número de hogares existentes en 2018. En él vemos que&nbsp; la mayoría de las secciones del centro histórico no pierden hogares, incluso algunas ganan un porcentaje superior al 10%. En cambio, sí hay algunas dode se produce esa pérdida, destacando el barrio de San Basilio, con más de un 10% de pérdida de población, pero también hay pérdidas importantes en otras zonas como la Judería o el barrio de Miraflores.</div>
-<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbC5UXV_fQ6egM_e32h9-jMYtEe7KV0x22i5j7Ty_WhsGRjR6Nb5g0_v3n4zxJYZ3d8ybtm02dFDuNv22lLngs6BldnielE8XRJDshsUSDtb4kv_lYxUcI-hATxmKTF7TFDsl1WyG_3hXwTnxZTLdpKi-TK_zIoRIifSgZ_HcERJnlEma-fu9aI4GiBGdx/s2040/WhatsApp%20Image%202026-05-10%20at%2019.15.31.jpeg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="1536" data-original-width="2040" height="482" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbC5UXV_fQ6egM_e32h9-jMYtEe7KV0x22i5j7Ty_WhsGRjR6Nb5g0_v3n4zxJYZ3d8ybtm02dFDuNv22lLngs6BldnielE8XRJDshsUSDtb4kv_lYxUcI-hATxmKTF7TFDsl1WyG_3hXwTnxZTLdpKi-TK_zIoRIifSgZ_HcERJnlEma-fu9aI4GiBGdx/w640-h482/WhatsApp%20Image%202026-05-10%20at%2019.15.31.jpeg" width="60%" /></a></div><br />
+   <div style="text-align: left;">&nbsp;Finalmente, abordaremos la cuestión de la posible despoblación del centro histórico y si ésta puede estar relacionada con el incremento de alojamientos turísticos. Efectivamente, como podemos ver en el siguiente gráfico, existe una reducción importante de la población en el centro histórico. Pero esto hay que analizarlo con detalle:
+     La reducción de la población puede deberse a un cambio en la estructura de los hogares, en donde se reduzca el número de personas por hogar, pasando de hogares con niños a hogares sin niños o personas solas, bien por el envejecimiento, en el que quedan personas mayores ya sin los niños, o bien que lleguen al barrio parejas que no tienen niños o personas solas. Esto no tendría relación directa con los alojamientos turísticos.&nbsp;</div>
+   <div style="text-align: left;">Por tanto, lo que realmente nos interesa no es el dato de población, sino el dato de viviendas familiares ocupadas, ya que es lo que nos puede dar la sustitución de hogares por turistas. Este dato solo está publicado directamente para el Censo de 2021, por lo que no podríamos saber su evolución, pero podemos conocerlo indirectamente utilizando el dato del tamaño medio del hogar, que aparece recogido en los<a href="https://www.juntadeandalucia.es/institutodeestadisticaycartografia/dega/estadisticas-de-poblacion-de-andalucia-basadas-en-registros-administrativos-epabra" target="_blank">Indicadores
+Estadísticos de Población de Andalucía Basados en Registros Administrativos</a>&nbsp;(IEPABRA)&nbsp; que publica el IECA. El último año para el que está disponible este indicador es el año 2024. Sabiendo la población de la sección y el tamaño del hogar es inmediato obtener el número de hogares.<br>
+Efectivamente, como vemos en el gráfico, mientras que la población tiene una acusada tendencia descendiente, el número de hogares no desciende, incluso tiene un ligero ascenso. Por tanto, si consideramos el centro histórico en general, no ha habido una reducción del número de hogares, sino una reducción del número de personas en cada hogar.
+</div>
+<iframe src='https://flo.uri.sh/visualisation/28916626/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:80vh;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+   
+<div 
+style="text-align: left;">Entrando en el detalle por zonas, vemos que la evolución del número de hogares no es igual en todas partes. En el siguiente mapa tenemos esta evolución, medida en porcentaje de pérdida o de ganancia sobre el número de hogares existentes en 2018, por secciones. En él vemos que&nbsp; la mayoría de las secciones del centro histórico no pierden hogares, incluso algunas ganan un porcentaje superior al 10%. En cambio, sí hay algunas dode se produce esa pérdida, destacando el barrio de San Basilio, con más de un 10% de pérdida de población, pero también hay pérdidas importantes en otras zonas como la Judería o el barrio de Miraflores.</div>
+<a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbC5UXV_fQ6egM_e32h9-jMYtEe7KV0x22i5j7Ty_WhsGRjR6Nb5g0_v3n4zxJYZ3d8ybtm02dFDuNv22lLngs6BldnielE8XRJDshsUSDtb4kv_lYxUcI-hATxmKTF7TFDsl1WyG_3hXwTnxZTLdpKi-TK_zIoRIifSgZ_HcERJnlEma-fu9aI4GiBGdx/s2040/WhatsApp%20Image%202026-05-10%20at%2019.15.31.jpeg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="1536" data-original-width="2040"  src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbC5UXV_fQ6egM_e32h9-jMYtEe7KV0x22i5j7Ty_WhsGRjR6Nb5g0_v3n4zxJYZ3d8ybtm02dFDuNv22lLngs6BldnielE8XRJDshsUSDtb4kv_lYxUcI-hATxmKTF7TFDsl1WyG_3hXwTnxZTLdpKi-TK_zIoRIifSgZ_HcERJnlEma-fu9aI4GiBGdx/w640-h482/WhatsApp%20Image%202026-05-10%20at%2019.15.31.jpeg" width="100%" /></a></div><br />
 <div style="text-align: left;">Imagen de un patio del barrio de San Basilio, el barrio con mayor reducción de viviendas familiares. Foto: autor</div>
 </div>
-<div style="text-align: left;"><br>Hay que recordar que en esta evolución solo se llega al 1 de enero de 2024, por lo que no sabemos como ha podido ser la evolución en los años 2024 y 2025,&nbsp; años donde el incremento de plazas turísticas ha sido muy alto.</div>
+<div style="text-align: left;"><br>Hay que recordar que en esta evolución solo se llega al 1 de enero de 2024, por lo que no sabemos como ha podido ser la evolución en los años 2024 y 2025,&nbsp; años donde el incremento de plazas turísticas ha sido muy alto y la reducción de población también.</div>
 
 
 
   <div class="map-container">
    <iframe style="width: 100%; height:  90%; border: 0;" allowfullscreen allow="geolocation" src="//umap.openstreetmap.fr/es/map/evolucion-de-hogares-entre-2018-y-2026_1403623?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.77939"></iframe><p><a href="//umap.openstreetmap.fr/es/map/evolucion-de-hogares-entre-2018-y-2026_1403623?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true#14/37.884710/-4.77939">Ver en pantalla completa</a></p></div>
 
-<h2 style="text-align: left;">Conclusiones</h2><div style="text-align: left;">Con estos datos hemos hallado que hay zonas donde la turistificación es ya un hecho, con mayoría de plazas turísticas, en algunos casos aplastante, con las consecuencias que tiene de pérdida del bienestar de esa población, al tener que competir en inferioridad con los usos turísticos. Otras zonas están también cerca de este límite, mientras que las zonas más alejadas de la Judería aún tienen poca incidencia del turismo.</div><div style="text-align: left;">El incremento de las plazas turísticas se ha centrado en la Judería y alrededores. En algunas zonas con una consecuencia clara de pérdida de población residente, sobre todo en el barrio de San Basilio. En cambio, en gran parte del centro histórico dicho efecto no parece notarse. Incluso en algunas zonas se gana población, posiblemente por la construcción de nuevas viviendas en los numerosos espacios deshabitados existentes. Recordando que aún no podemos contar con la evolución de los años 2024 y 2025.</div><div style="text-align: left;">En próximos estudios se podría estudiar la evolución desagregada por tipo de alojamiento y otras muchas cuestiones que quedan pendientes.&nbsp;</div>
+<h2 style="text-align: left;">Conclusiones</h2><div style="text-align: left;">Con estos datos hemos hallado que hay zonas donde la turistificación es ya un hecho, con mayoría de plazas turísticas, en algunos casos aplastante, con las consecuencias que tiene de pérdida del bienestar de esa población, al tener que competir en inferioridad con los usos turísticos. Otras zonas están también cerca de este límite, mientras que las zonas más alejadas de la Judería aún tienen poca incidencia del turismo.</div><div style="text-align: left;">El incremento de las plazas turísticas se ha centrado en la Judería y alrededores. En algunas zonas con una consecuencia clara de pérdida de población residente, sobre todo en el barrio de San Basilio. En cambio, en gran parte del centro histórico dicho efecto no parece notarse. Incluso en algunas zonas se gana población, posiblemente por la construcción de nuevas viviendas en los numerosos espacios deshabitados existentes. Recordando que aún no podemos contar con la evolución de los años 2024 y 2025, donde podría haberse notado más la pérdida de hogares.</div><div style="text-align: left;">En próximos estudios se podría estudiar la evolución desagregada por tipo de alojamiento y otras muchas cuestiones que quedan pendientes.&nbsp;</div>
 
 
   <script>
